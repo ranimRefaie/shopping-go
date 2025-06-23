@@ -47,8 +47,8 @@ export default function CategoryPage() {
   const titleColor = theme === 'dark' ? '#f4f4f5' : '#1f2937';
 
   return (
-<>
- <PageTitle title={`${decodeURIComponent(category as string).replace(/'s/g, '’s')}Products`} />
+    <>
+      <PageTitle title={`${decodeURIComponent(category as string).replace(/'s/g, '’s')} Products`} />
       <div className="max-w-7xl mx-auto py-8 px-4">
         <h1
           className="text-2xl font-bold mb-6 capitalize transition-colors duration-300"
@@ -56,12 +56,11 @@ export default function CategoryPage() {
         >
           {decodeURIComponent(category as string).replace(/'s/g, '’s')} Products
         </h1>
-
         {loading ? (
           <p className="dark:text-gray-300">Loading...</p>
         ) : filteredProducts.length === 0 ? (
           <p className="dark:text-gray-300">
-            No products found for "{decodeURIComponent(category as string)}"
+            No products found for &quot;{decodeURIComponent(category as string)}&quot;
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -71,6 +70,7 @@ export default function CategoryPage() {
           </div>
         )}
       </div>
-</>
+
+    </>
   );
 }

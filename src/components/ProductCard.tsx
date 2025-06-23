@@ -4,14 +4,12 @@ import { Product } from '@/store/CartContext';
 import { useCart } from '@/store/CartContext';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Heart } from 'lucide-react';
-import { useState } from 'react';
 
 type Props = {
   product: Product;
 };
 
 export default function ProductCard({ product }: Props) {
-  const [liked, setLiked] = useState(false);
 const { addToCart, favorites, toggleFavorite } = useCart();
 
 const isFavorite = favorites.some((fav) => fav.id === product.id);

@@ -3,13 +3,12 @@
 import { useAdminProducts } from '@/store/AdminProductContext';
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import { ArrowLeft, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 
-const MySwal = withReactContent(Swal);
+
 
 export default function AdminDashboard() {
   const { products, addProduct, deleteProduct, updateProduct } = useAdminProducts();
