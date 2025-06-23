@@ -38,35 +38,37 @@ export default function AdminDashboard() {
   };
 
   const handleEdit = async (product: typeof products[0]) => {
-    const { value: formValues } = await Swal.fire({
-      title: 'Edit Product',
-      html: `
+const { value: formValues } = await Swal.fire({
+  title: 'Edit Product',
+  html: `
     <input id="swal-input-title" class="swal2-input" placeholder="Title" value="${product.title}" />
     <input id="swal-input-price" class="swal2-input" placeholder="Price" type="number" value="${product.price}" />
     <input id="swal-input-image" class="swal2-input" placeholder="Image URL" value="${product.image}" />
   `,
-      focusConfirm: false,
-      showCancelButton: true,
-      confirmButtonText: 'Save',
-      cancelButtonText: 'Cancel',
-      buttonsStyling: false,
-      customClass: {
-        confirmButton: 'bg-pink-600 hover:bg-pink-700 text-white font-semibold px-4 py-2 rounded mx-2',
-        cancelButton: 'bg-gray-300 hover:bg-gray-400 text-black font-medium px-4 py-2 rounded mx-2',
-      },
-      preConfirm: () => {
-        const title = (document.getElementById('swal-input-title') as HTMLInputElement).value;
-        const price = parseFloat((document.getElementById('swal-input-price') as HTMLInputElement).value);
-        const image = (document.getElementById('swal-input-image') as HTMLInputElement).value;
+  focusConfirm: false,
+  showCancelButton: true,
+  confirmButtonText: 'Save',
+  cancelButtonText: 'Cancel',
+  buttonsStyling: false,
+  customClass: {
+    popup: 'custom-swal-popup',
+    confirmButton: 'bg-pink-600 hover:bg-pink-700 text-white font-semibold px-4 py-2 rounded mx-2',
+    cancelButton: 'bg-gray-300 hover:bg-gray-400 text-black font-medium px-4 py-2 rounded mx-2',
+  },
+  preConfirm: () => {
+    const title = (document.getElementById('swal-input-title') as HTMLInputElement).value;
+    const price = parseFloat((document.getElementById('swal-input-price') as HTMLInputElement).value);
+    const image = (document.getElementById('swal-input-image') as HTMLInputElement).value;
 
-        if (!title || isNaN(price)) {
-          Swal.showValidationMessage('Please enter valid title and price.');
-          return;
-        }
+    if (!title || isNaN(price)) {
+      Swal.showValidationMessage('Please enter valid title and price.');
+      return;
+    }
 
-        return { title, price, image };
-      },
-    });
+    return { title, price, image };
+  },
+});
+
 
 
     if (formValues) {
