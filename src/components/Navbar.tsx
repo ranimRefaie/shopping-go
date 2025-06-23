@@ -15,16 +15,19 @@ import {
   Search,
   X,
 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
+
+
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const { cart, favorites, isLoggedIn, logout } = useCart();
   const router = useRouter();
-
+  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setSearchOpen] = useState(false);
   const sidebarRef = useRef(null);
 
@@ -49,6 +52,18 @@ const Navbar = () => {
     router.push('/');
     setSidebarOpen(false);
   };
+const allowedPaths = [
+    '/',
+    '/products',
+    '/jewelery',
+    "/men's clothing",
+    "/women's clothing",
+    '/electronics',
+  ];
+
+
+  const decodedPath = decodeURIComponent(pathname || '');
+  const showSearch = allowedPaths.includes(decodedPath);
 
   if (!mounted) return null;
 
@@ -67,41 +82,63 @@ const Navbar = () => {
           </Link>
         )}
 
-        {/* Search input */}
-        {isSearchOpen ? (
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none bg-gray-200 text-gray-400 placeholder:text-gray-400 mr-2"
-          />
-        ) : (
-          <div className="hidden md:block w-1/3">
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="w-full px-4 py-2  rounded-lg focus:outline-none bg-gray-200 text-gray-400 placeholder:text-gray-400"
-            />
-          </div>
-        )}
+         {/* Search input */}
+        {isSearchOpen && showSearch ? (
+  <input
+    type="text"
+    placeholder="Search products..."
+    className="w-full px-4 py-2 rounded-lg focus:outline-none bg-gray-200 text-gray-600 placeholder:text-gray-400"
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    onKeyDown={(e) => {
+      if (e.key === 'Enter') {
+        router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
+        setSearchOpen(false);
+        setSearchQuery('');
+      }
+    }}
+  />
+) : (
+  <div className="hidden md:block w-1/3">
+    {showSearch && (
+      <input
+        type="text"
+        placeholder="Search products..."
+        className="w-full px-4 py-2 rounded-lg focus:outline-none bg-gray-200 text-gray-600 placeholder:text-gray-400"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
+            setSearchQuery('');
+          }
+        }}
+      />
+    )}
+  </div>
+)}
+
 
         {/* Right side */}
         <div className="flex items-center gap-4 md:gap-6">
           {/* Search button for small screens */}
-          <button
-            className="md:hidden"
-            onClick={() => setSearchOpen((prev) => !prev)}
-          >
-            {isSearchOpen ? (
-              <X className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} w-6 h-6 `} />
-            ) : (
-              <Search className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} w-6 h-6 `} />
-            )}
-          </button>
+          {showSearch && (
+            <button
+              className="md:hidden"
+              onClick={() => setSearchOpen((prev) => !prev)}
+            >
+              {isSearchOpen ? (
+                <X className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} w-6 h-6`} />
+              ) : (
+                <Search className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} w-6 h-6`} />
+              )}
+            </button>
+          )}
 
-          {/* Sidebar toggle for small screens */}
+           {/* Sidebar toggle for small screens */}
           {!isSearchOpen && (
             <button className="md:hidden" onClick={() => setSidebarOpen(true)}>
-              <Menu className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} w-6 h-6`}/>
+              <Menu className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} w-6 h-6`} />
             </button>
           )}
 
@@ -275,5 +312,4 @@ const Navbar = () => {
     </header>
   );
 };
-
-export default Navbar;
+export default Navbar

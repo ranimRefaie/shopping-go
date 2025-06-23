@@ -1,21 +1,26 @@
 'use client';
+
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import CategorySection from '@/components/CategorySection';
 import FeaturedProducts from '@/components/FeaturedProducts';
 import PageTitle from '@/components/PageTitle';
-import { useEffect } from 'react';
-
 
 export default function HomePage() {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get('search')?.toLowerCase() || '';
+
   useEffect(() => {
     document.title = 'Shopping Go | Home';
   }, []);
-  return (  
-   <>
-    <PageTitle title="Home" />
-    <main className="px-4 py-8 max-w-7xl mx-auto">   
-      <CategorySection />
-      <FeaturedProducts />
-    </main>
-   </>
+
+  return (
+    <>
+      <PageTitle title="Home" />
+      <main className="px-4 py-8 max-w-7xl mx-auto">
+        {!searchQuery && <CategorySection />}
+        <FeaturedProducts searchQuery={searchQuery} />
+      </main>
+    </>
   );
 }
