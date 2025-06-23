@@ -6,7 +6,7 @@ import { CartProvider } from '@/store/CartContext';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import { usePathname } from 'next/navigation';
-
+import { Suspense } from 'react';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -19,7 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <CartProvider>
             {!shouldHideLayout && <Navbar />}
-          {children}
+          <Suspense fallback={<div className="p-4">Loading page...</div>}>
+              {children}
+            </Suspense>
           {!shouldHideLayout && <Footer />}
           </CartProvider>
         </ThemeProvider>

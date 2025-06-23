@@ -6,6 +6,8 @@ import CategorySection from '@/components/CategorySection';
 import FeaturedProducts from '@/components/FeaturedProducts';
 import PageTitle from '@/components/PageTitle';
 
+
+
 export default function HomePage() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('search')?.toLowerCase() || '';

@@ -49,7 +49,7 @@ export default function AdminDashboard() {
       showCancelButton: true,
       confirmButtonText: 'Save',
       cancelButtonText: 'Cancel',
-      buttonsStyling: false, // لازم لتعطيل الستيلات الافتراضية
+      buttonsStyling: false,
       customClass: {
         confirmButton: 'bg-pink-600 hover:bg-pink-700 text-white font-semibold px-4 py-2 rounded mx-2',
         cancelButton: 'bg-gray-300 hover:bg-gray-400 text-black font-medium px-4 py-2 rounded mx-2',
