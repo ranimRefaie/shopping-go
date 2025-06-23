@@ -5,10 +5,12 @@ import SectionTitle from '@/components/SectionTitle';
 import { useCart } from '@/store/CartContext';
 import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
+import { useTheme } from 'next-themes';
 
 export default function CartPage() {
   const { cart, removeFromCart, clearCart } = useCart();
   const [isCheckout, setIsCheckout] = useState(false);
+  const { theme } = useTheme();
 
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
@@ -24,7 +26,7 @@ export default function CartPage() {
   return (
    <>
     <PageTitle title="my cart" />
-    <div className="max-w-6xl mx-auto py-10">
+    <div className="w-[90%] h-screen mx-auto py-10">
         <SectionTitle title="Your Cart" />
 
       {isCheckout && (
@@ -38,12 +40,12 @@ export default function CartPage() {
       ) : (
         <div className="space-y-6">
           {cart.map((item) => (
-            <div key={item.id} className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-xl shadow">
+            <div key={item.id} className={`${theme === 'dark' ? 'bg-gray-800' : 'text-gray-700'} flex items-center justify-between p-4 rounded-xl shadow`}>
               <div className="flex items-center gap-4">
                 <img src={item.image || item.image} alt={item.title} className="w-16 h-16 object-cover rounded-md" />
                 <div>
-                  <h2 className="font-semibold dark:text-white">{item.title}</h2>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">${item.price} × {item.quantity}</p>
+                  <h2 className={`${theme === 'dark' ? 'text-white' : ''} font-semibold`}>{item.title}</h2>
+                  <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} text-sm`}>${item.price} × {item.quantity}</p>
                 </div>
               </div>
               <button

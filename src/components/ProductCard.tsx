@@ -4,6 +4,7 @@ import { Product } from '@/store/CartContext';
 import { useCart } from '@/store/CartContext';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Heart } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 type Props = {
   product: Product;
@@ -11,12 +12,13 @@ type Props = {
 
 export default function ProductCard({ product }: Props) {
 const { addToCart, favorites, toggleFavorite } = useCart();
+  const { theme } = useTheme();
 
 const isFavorite = favorites.some((fav) => fav.id === product.id);
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
-      className="rounded-2xl bg-white dark:bg-gray-800 shadow-md p-4 flex flex-col justify-between"
+      className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-2xl  shadow-2xs shadow-gray-300 border border-zinc-300 p-4 flex flex-col justify-between`}
     >
       <img
         src={product.image}
@@ -24,8 +26,8 @@ const isFavorite = favorites.some((fav) => fav.id === product.id);
         className="w-full h-48 object-cover rounded-lg mb-4"
       />
       <div className="flex flex-col flex-grow">
-        <h2 className="text-lg font-semibold dark:text-white">{product.title}</h2>
-        <p className="text-gray-600 dark:text-gray-300 mb-2 line-clamp-2">{product.description}</p>
+        <h2 className={`${theme === 'dark' ? 'text-white' : ''} text-lg font-semibold`}>{product.title}</h2>
+        <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}  mb-2 line-clamp-2`}>{product.description}</p>
         <p className="font-bold text-blue-600">${product.price}</p>
 
         {/* Rating */}

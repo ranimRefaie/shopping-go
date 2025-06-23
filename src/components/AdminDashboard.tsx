@@ -99,7 +99,7 @@ export default function AdminDashboard() {
       <div className="flex justify-between items-center">
         <button
           onClick={() => router.push('/')}
-          className="text-gray-600 dark:text-gray-300 hover:text-pink-500 transition"
+          className="text-gray-600 dark:text-gray-300 hover:text-pink-500 transition cursor-pointer"
         >
           <ArrowLeft className="w-6 h-6" />
         </button>
@@ -109,6 +109,7 @@ export default function AdminDashboard() {
           animate={{ rotate: 0, opacity: 1 }}
           transition={{ duration: 0.4 }}
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          className='cursor-pointer'
         >
           {theme === 'dark' ? (
             <Sun className="w-6 h-6 text-yellow-400" />

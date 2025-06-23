@@ -43,7 +43,7 @@ export default function AdminLogin() {
   <div className="flex justify-between items-center py-4">
     <button
       onClick={() => router.push('/')}
-      className="text-gray-600 dark:text-gray-300 hover:text-pink-500 transition"
+      className="text-gray-600 dark:text-gray-300 hover:text-pink-500 transition cursor-pointer"
     >
       <ArrowLeft className="w-6 h-6" />
     </button>
@@ -53,9 +53,10 @@ export default function AdminLogin() {
       animate={{ rotate: 0, opacity: 1 }}
       transition={{ duration: 0.4 }}
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      className='cursor-pointer'
     >
       {theme === 'dark' ? (
-        <Sun className="w-6 h-6 text-yellow-400" />
+        <Sun className="w-6 h-6 text-yellow-400 " />
       ) : (
         <Moon className="w-6 h-6 text-gray-500" />
       )}
@@ -74,7 +75,7 @@ export default function AdminLogin() {
 
       <input
         type="password"
-        placeholder="Enter admin password"
+        placeholder="admin123"
         className={`${theme === 'dark' ? 'border-zinc-600 bg-zinc-700 text-white' : 'border-gray-300'} w-full mb-4 px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-pink-500`}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
