@@ -92,16 +92,16 @@ const Navbar = () => {
             onClick={() => setSearchOpen((prev) => !prev)}
           >
             {isSearchOpen ? (
-              <X className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+              <X className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} w-6 h-6 `} />
             ) : (
-              <Search className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+              <Search className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} w-6 h-6 `} />
             )}
           </button>
 
           {/* Sidebar toggle for small screens */}
           {!isSearchOpen && (
             <button className="md:hidden" onClick={() => setSidebarOpen(true)}>
-              <Menu className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+              <Menu className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} w-6 h-6`}/>
             </button>
           )}
 

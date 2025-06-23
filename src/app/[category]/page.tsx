@@ -44,15 +44,14 @@ export default function CategoryPage() {
     fetchProducts();
   }, [category]);
 
-  const titleColor = theme === 'dark' ? '#f4f4f5' : '#1f2937';
+
 
   return (
     <>
       <PageTitle title={`${decodeURIComponent(category as string).replace(/'s/g, '’s')} Products`} />
       <div className="max-w-7xl mx-auto py-8 px-4">
         <h1
-          className="text-2xl font-bold mb-6 capitalize transition-colors duration-300"
-          style={{ color: titleColor }}
+          className={`text-2xl font-bold mb-6 capitalize transition-colors duration-300 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}
         >
           {decodeURIComponent(category as string).replace(/'s/g, '’s')} Products
         </h1>
