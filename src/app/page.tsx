@@ -15,12 +15,13 @@ export default function HomePage() {
   }, []);
 
   return (
-    <>
-      <PageTitle title="Home" />
+
+
       <main className="px-4 py-8 max-w-7xl mx-auto">
+        <PageTitle title="Home" />
         {!searchQuery && <CategorySection />}
         <FeaturedProducts searchQuery={searchQuery} />
       </main>
-    </>
+
   );
 }

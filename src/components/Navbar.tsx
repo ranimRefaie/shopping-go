@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
+import SearchBar from './SearchBar';
 
 
 
@@ -27,7 +28,6 @@ const Navbar = () => {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setSearchOpen] = useState(false);
   const sidebarRef = useRef(null);
 
@@ -52,7 +52,7 @@ const Navbar = () => {
     router.push('/');
     setSidebarOpen(false);
   };
-const allowedPaths = [
+  const allowedPaths = [
     '/',
     '/products',
     '/jewelery',
@@ -82,41 +82,16 @@ const allowedPaths = [
           </Link>
         )}
 
-         {/* Search input */}
+        {/* Search input */}
         {isSearchOpen && showSearch ? (
-  <input
-    type="text"
-    placeholder="Search products..."
-    className="w-full px-4 py-2 rounded-lg focus:outline-none bg-gray-200 text-gray-600 placeholder:text-gray-400"
-    value={searchQuery}
-    onChange={(e) => setSearchQuery(e.target.value)}
-    onKeyDown={(e) => {
-      if (e.key === 'Enter') {
-        router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
-        setSearchOpen(false);
-        setSearchQuery('');
-      }
-    }}
-  />
-) : (
-  <div className="hidden md:block w-1/3">
-    {showSearch && (
-      <input
-        type="text"
-        placeholder="Search products..."
-        className="w-full px-4 py-2 rounded-lg focus:outline-none bg-gray-200 text-gray-600 placeholder:text-gray-400"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
-            setSearchQuery('');
-          }
-        }}
-      />
-    )}
-  </div>
-)}
+          <SearchBar />
+        ) : (
+          <div className="hidden md:block w-1/3">
+            {showSearch && (
+              <SearchBar />
+            )}
+          </div>
+        )}
 
 
         {/* Right side */}
@@ -135,7 +110,7 @@ const allowedPaths = [
             </button>
           )}
 
-           {/* Sidebar toggle for small screens */}
+          {/* Sidebar toggle for small screens */}
           {!isSearchOpen && (
             <button className="md:hidden" onClick={() => setSidebarOpen(true)}>
               <Menu className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} w-6 h-6`} />
